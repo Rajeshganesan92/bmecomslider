@@ -1,0 +1,2 @@
+# bmecomslider
+Wordpress plugin
