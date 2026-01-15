@@ -231,3 +231,5 @@ Whether custom CSS animation input should be exposed to users
 Desired minimum PHP & WordPress version
 
 Once confirmed, I will immediately generate the full plugin code and ZIP-ready structure.
+
+hello
