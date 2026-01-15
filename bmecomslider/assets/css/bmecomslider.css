@@ -1,0 +1,103 @@
+.bmecom-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.bmecom-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.bmecom-slide {
+    flex: 0 0 100%;
+    width: 100%;
+}
+
+.bmecom-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bmecom-slider-arrows {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.bmecom-slider-arrow {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.bmecom-slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.bmecom-slider-dot {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.bmecom-slider-dot.active {
+    background: white;
+}
+
+/* Animations */
+.animation-fade .bmecom-slide {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.animation-fade .bmecom-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.animation-slide .bmecom-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.animation-slide .bmecom-slide {
+    flex: 0 0 100%;
+    width: 100%;
+}
+
+.animation-zoom .bmecom-slide {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.animation-zoom .bmecom-slide.active {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 1;
+}
