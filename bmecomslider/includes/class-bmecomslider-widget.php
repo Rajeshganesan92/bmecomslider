@@ -290,14 +290,16 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                  data-slide-timing="<?php echo esc_attr( $settings['slide_timing'] ); ?>"
                  data-pause-on-hover="<?php echo esc_attr( $settings['pause_on_hover'] ); ?>"
                  data-loop="<?php echo esc_attr( $settings['loop'] ); ?>">
+                <?php $first = true; ?>
                 <?php foreach ( $settings['slides'] as $slide ) : ?>
                     <div class="bmecom-slide">
                         <picture>
-                            <source media="(max-width: 767px)" srcset="<?php echo esc_url( ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'] ); ?>">
-                            <source media="(max-width: 1024px)" srcset="<?php echo esc_url( ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'] ); ?>">
-                            <img src="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>" alt="<?php echo esc_attr( $slide['slide_title'] ); ?>" loading="lazy">
+                            <source media="(max-width: 767px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'] ); ?>">
+                            <source media="(max-width: 1024px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'] ); ?>">
+                            <img <?php echo $first ? 'src' : 'data-src'; ?>="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>" alt="<?php echo esc_attr( $slide['slide_title'] ); ?>" loading="lazy">
                         </picture>
                     </div>
+                <?php $first = false; ?>
                 <?php endforeach; ?>
             </div>
             <?php if ( $settings['arrows'] === 'yes' ) : ?>
