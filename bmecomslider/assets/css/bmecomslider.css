@@ -27,6 +27,7 @@
     justify-content: space-between;
     padding: 0 20px;
     box-sizing: border-box;
+    z-index: 3;
 }
 
 .bmecom-slider-arrow {
@@ -44,6 +45,7 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
+    z-index: 3;
 }
 
 .bmecom-slider-dot {
@@ -62,13 +64,28 @@
 
 /* Animations */
 /* 1. The Zoom Animation */
+.bmecom-slider-wrapper.animation-zoom .bmecom-slide {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.bmecom-slider-wrapper.animation-zoom .bmecom-slide.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
 .bmecom-slider-wrapper.animation-zoom .bmecom-slide img {
-    transform: scale(1.2); /* Start zoomed in (or 1 for start small) */
-    transition: transform 5s ease; /* Matches your 5000ms slide timing */
+    transform: scale(1);
+    transition: transform 3s ease-in-out;
 }
 
 .bmecom-slider-wrapper.animation-zoom .bmecom-slide.active img {
-    transform: scale(1); /* Zoom out effect */
+    transform: scale(1.1);
 }
 
 /* 2. The Fade Animation */
