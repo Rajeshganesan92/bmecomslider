@@ -293,12 +293,8 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 <?php foreach ( $settings['slides'] as $slide ) : ?>
                     <div class="bmecom-slide">
                         <picture>
-                            <?php if ( ! empty( $slide['mobile_image']['url'] ) ) : ?>
-                                <source media="(max-width: 767px)" srcset="<?php echo esc_url( $slide['mobile_image']['url'] ); ?>">
-                            <?php endif; ?>
-                            <?php if ( ! empty( $slide['tablet_image']['url'] ) ) : ?>
-                                <source media="(max-width: 1024px)" srcset="<?php echo esc_url( $slide['tablet_image']['url'] ); ?>">
-                            <?php endif; ?>
+                            <source media="(max-width: 767px)" srcset="<?php echo esc_url( ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'] ); ?>">
+                            <source media="(max-width: 1024px)" srcset="<?php echo esc_url( ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'] ); ?>">
                             <img src="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>" alt="<?php echo esc_attr( $slide['slide_title'] ); ?>" loading="lazy">
                         </picture>
                     </div>
