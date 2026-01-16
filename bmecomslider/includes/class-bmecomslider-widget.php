@@ -135,6 +135,21 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $repeater->add_control(
+            'slide_link',
+            [
+                'label' => __( 'Link', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::URL,
+                'placeholder' => __( 'https://your-link.com', 'bmecomslider' ),
+                'show_external' => true,
+                'default' => [
+                    'url' => '',
+                    'is_external' => true,
+                    'nofollow' => true,
+                ],
+            ]
+        );
+
         $this->add_control(
             'slides',
             [
@@ -150,6 +165,24 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                     ],
                 ],
                 'title_field' => '{{{ slide_title }}}',
+            ]
+        );
+
+        $this->add_control(
+            'animation_speed',
+            [
+                'label' => __( 'Animation Speed (ms)', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 100,
+                'max' => 5000,
+                'step' => 50,
+                'default' => 500,
+                'selectors' => [
+                    '{{WRAPPER}} .animation-slide .bmecom-slider' => 'transition-duration: {{SIZE}}ms',
+                ],
+                'condition' => [
+                    'animation' => 'slide',
+                ],
             ]
         );
 
@@ -293,11 +326,23 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 <?php $first = true; ?>
                 <?php foreach ( $settings['slides'] as $slide ) : ?>
                     <div class="bmecom-slide">
+                        <?php
+                        $link_tag = '';
+                        if ( ! empty( $slide['slide_link']['url'] ) ) {
+                            $this->add_link_attributes( 'link_tag', $slide['slide_link'] );
+                            echo '<a ' . $this->get_render_attribute_string( 'link_tag' ) . '>';
+                        }
+                        ?>
                         <picture>
                             <source media="(max-width: 767px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'] ); ?>">
                             <source media="(max-width: 1024px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'] ); ?>">
                             <img <?php echo $first ? 'src' : 'data-src'; ?>="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>" alt="<?php echo esc_attr( $slide['slide_title'] ); ?>" loading="lazy">
                         </picture>
+                        <?php
+                        if ( ! empty( $slide['slide_link']['url'] ) ) {
+                            echo '</a>';
+                        }
+                        ?>
                     </div>
                 <?php $first = false; ?>
                 <?php endforeach; ?>
