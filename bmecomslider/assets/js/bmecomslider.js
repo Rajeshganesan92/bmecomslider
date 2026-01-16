@@ -100,6 +100,8 @@ class BMECOMSlider {
 
         if (index === oldIndex) return;
 
+        this.loadSlideImages(index);
+
         if (animation === 'slide') {
             this.slider.style.transform = `translateX(-${index * 100}%)`;
         } else {
@@ -117,6 +119,27 @@ class BMECOMSlider {
                 dot.classList.toggle('active', i === index);
             });
         }
+    }
+
+    loadSlideImages(index) {
+        const slide = this.slides[index];
+        if (!slide || slide.dataset.loaded) return;
+
+        const sources = slide.querySelectorAll('source');
+        sources.forEach(source => {
+            if (source.dataset.srcset) {
+                source.srcset = source.dataset.srcset;
+                delete source.dataset.srcset;
+            }
+        });
+
+        const img = slide.querySelector('img');
+        if (img && img.dataset.src) {
+            img.src = img.dataset.src;
+            delete img.dataset.src;
+        }
+
+        slide.dataset.loaded = true;
     }
 
     nextSlide() {
