@@ -13,6 +13,11 @@ class BMECOMSlider {
     }
 
     init() {
+        const widgetElement = this.slider.closest('.elementor-widget');
+        if (widgetElement) {
+            widgetElement.classList.remove('elementor-invisible');
+        }
+
         this.wrapper.classList.add(`animation-${this.settings.animation}`);
         this.setupDots();
         this.setupEventListeners();
@@ -21,9 +26,11 @@ class BMECOMSlider {
         if (this.settings.animation === 'slide') {
              this.slider.style.transform = 'translateX(0%)';
         } else {
-            this.slides[0].classList.add('active');
+            if (this.slides.length > 0) {
+                this.slides[0].classList.add('active');
+            }
         }
-        if (this.dots) {
+        if (this.dots && this.dots.length > 0) {
             this.dots[0].classList.add('active');
         }
 
