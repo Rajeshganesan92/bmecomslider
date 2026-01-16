@@ -22,16 +22,6 @@ class BMECOMSlider {
         this.setupDots();
         this.setupEventListeners();
 
-        // Wait for images to load before setting height
-        window.addEventListener('load', () => {
-            this.setSliderHeight();
-        });
-
-        // Recalculate height on resize
-        window.addEventListener('resize', () => {
-            this.setSliderHeight();
-        });
-
         // Initial slide setup
         if (this.settings.animation === 'slide') {
              this.slider.style.transform = 'translateX(0%)';
@@ -129,8 +119,6 @@ class BMECOMSlider {
                 dot.classList.toggle('active', i === index);
             });
         }
-
-        this.setSliderHeight();
     }
 
     loadSlideImages(index) {
@@ -152,15 +140,6 @@ class BMECOMSlider {
         }
 
         slide.dataset.loaded = true;
-    }
-
-    setSliderHeight() {
-        if (this.settings.animation !== 'slide') {
-            const activeSlide = this.slides[this.currentIndex];
-            if (activeSlide) {
-                this.slider.style.height = `${activeSlide.offsetHeight}px`;
-            }
-        }
     }
 
     nextSlide() {
