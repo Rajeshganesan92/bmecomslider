@@ -4,12 +4,11 @@
 }
 
 .bmecom-slider {
-    display: flex;
+    position: relative;
     transition: transform 0.5s ease-in-out;
 }
 
 .bmecom-slide {
-    flex: 0 0 100%;
     width: 100%;
 }
 
