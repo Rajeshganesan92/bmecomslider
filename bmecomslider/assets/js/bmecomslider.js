@@ -173,9 +173,13 @@ class BMECOMSlider {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const sliders = document.querySelectorAll('.bmecom-slider');
-    sliders.forEach(slider => {
-        new BMECOMSlider(slider);
-    });
+jQuery(window).on('elementor/frontend/init', () => {
+    const BMECOMSliderHandler = ($scope) => {
+        const sliderElement = $scope.find('.bmecom-slider')[0];
+        if (sliderElement) {
+            new BMECOMSlider(sliderElement);
+        }
+    };
+
+    elementorFrontend.hooks.addAction('frontend/element_ready/bmecom-slider.default', BMECOMSliderHandler);
 });
