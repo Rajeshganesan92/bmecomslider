@@ -294,6 +294,34 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'arrow_color',
+            [
+                'label' => __( 'Arrow Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-arrow' => 'color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'arrows' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'arrow_background_color',
+            [
+                'label' => __( 'Arrow Background Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-arrow' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'arrows' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'dots',
             [
                 'label' => __( 'Dots', 'bmecomslider' ),
@@ -302,6 +330,34 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'label_off' => __( 'Off', 'bmecomslider' ),
                 'return_value' => 'yes',
                 'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'dots_color',
+            [
+                'label' => __( 'Dots Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-dots .bmecom-slider-dot' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'dots' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'dots_color_active',
+            [
+                'label' => __( 'Dots Active Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-dots .bmecom-slider-dot.active' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'dots' => 'yes',
+                ],
             ]
         );
 
