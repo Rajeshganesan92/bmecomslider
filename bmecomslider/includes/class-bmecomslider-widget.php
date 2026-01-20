@@ -150,6 +150,42 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $repeater->add_control(
+            'background_size',
+            [
+                'label' => __( 'Background Size', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'responsive' => true,
+                'options' => [
+                    'auto' => __( 'Auto', 'bmecomslider' ),
+                    'cover' => __( 'Cover', 'bmecomslider' ),
+                    'contain' => __( 'Contain', 'bmecomslider' ),
+                ],
+                'default' => 'cover',
+            ]
+        );
+
+        $repeater->add_control(
+            'background_position',
+            [
+                'label' => __( 'Background Position', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'responsive' => true,
+                'options' => [
+                    'center center' => __( 'Center Center', 'bmecomslider' ),
+                    'center left' => __( 'Center Left', 'bmecomslider' ),
+                    'center right' => __( 'Center Right', 'bmecomslider' ),
+                    'top center' => __( 'Top Center', 'bmecomslider' ),
+                    'top left' => __( 'Top Left', 'bmecomslider' ),
+                    'top right' => __( 'Top Right', 'bmecomslider' ),
+                    'bottom center' => __( 'Bottom Center', 'bmecomslider' ),
+                    'bottom left' => __( 'Bottom Left', 'bmecomslider' ),
+                    'bottom right' => __( 'Bottom Right', 'bmecomslider' ),
+                ],
+                'default' => 'center center',
+            ]
+        );
+
         $this->add_control(
             'slides',
             [
@@ -379,30 +415,56 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                  data-slide-timing="<?php echo esc_attr( $settings['slide_timing'] ); ?>"
                  data-pause-on-hover="<?php echo esc_attr( $settings['pause_on_hover'] ); ?>"
                  data-loop="<?php echo esc_attr( $settings['loop'] ); ?>">
-                <?php $first = true; ?>
-                <?php foreach ( $settings['slides'] as $slide ) : ?>
-                    <div class="bmecom-slide">
-                        <?php
-                        $this->remove_render_attribute( 'link_tag' );
-                        if ( ! empty( $slide['slide_link']['url'] ) ) {
-                            $this->add_link_attributes( 'link_tag', $slide['slide_link'] );
-                            echo '<a ' . $this->get_render_attribute_string( 'link_tag' ) . '>';
+                <?php
+                $style_blocks = '';
+                foreach ( $settings['slides'] as $index => $slide ) :
+                    $slide_style = 'background-size: ' . esc_attr( $slide['background_size'] ) . ';';
+                    $slide_style .= 'background-position: ' . esc_attr( $slide['background_position'] ) . ';';
+
+                    if ($index !== 0) {
+                        $slide_style .= 'background-image: none;';
+                    } else {
+                        $slide_style .= 'background-image: url(' . esc_url( $slide['desktop_image']['url'] ) . ');';
+                    }
+
+                    $tablet_image = ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'];
+                    $mobile_image = ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'];
+
+                    $style_blocks .= "
+                        @media (max-width: 1024px) {
+                            .bmecom-slide-{$index} {
+                                background-image: url(" . esc_url( $tablet_image ) . ") !important;
+                                background-size: " . esc_attr( $slide['background_size_tablet'] ? $slide['background_size_tablet'] : $slide['background_size'] ) . " !important;
+                                background-position: " . esc_attr( $slide['background_position_tablet'] ? $slide['background_position_tablet'] : $slide['background_position'] ) . " !important;
+                            }
                         }
-                        ?>
-                        <picture>
-                            <source media="(max-width: 767px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'] ); ?>">
-                            <source media="(max-width: 1024px)" <?php echo $first ? 'srcset' : 'data-srcset'; ?>="<?php echo esc_url( ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'] ); ?>">
-                            <img <?php echo $first ? 'src' : 'data-src'; ?>="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>" alt="<?php echo esc_attr( $slide['slide_title'] ); ?>" loading="lazy">
-                        </picture>
+                        @media (max-width: 767px) {
+                            .bmecom-slide-{$index} {
+                                background-image: url(" . esc_url( $mobile_image ) . ") !important;
+                                background-size: " . esc_attr( $slide['background_size_mobile'] ? $slide['background_size_mobile'] : $slide['background_size'] ) . " !important;
+                                background-position: " . esc_attr( $slide['background_position_mobile'] ? $slide['background_position_mobile'] : $slide['background_position'] ) . " !important;
+                            }
+                        }
+                    ";
+                    ?>
+                    <div class="bmecom-slide bmecom-slide-<?php echo $index; ?>"
+                         style="<?php echo $slide_style; ?>"
+                         data-desktop-image="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>"
+                         data-tablet-image="<?php echo esc_url( $tablet_image ); ?>"
+                         data-mobile-image="<?php echo esc_url( $mobile_image ); ?>">
                         <?php
                         if ( ! empty( $slide['slide_link']['url'] ) ) {
-                            echo '</a>';
+                            $link_key = $this->get_repeater_setting_key( 'slide_link', 'slides', $index );
+                            $this->add_link_attributes( $link_key, $slide['slide_link'] );
+                            echo '<a ' . $this->get_render_attribute_string( $link_key ) . ' style="display:block;width:100%;height:100%;"></a>';
                         }
                         ?>
                     </div>
-                <?php $first = false; ?>
                 <?php endforeach; ?>
             </div>
+            <style>
+                <?php echo $style_blocks; ?>
+            </style>
             <?php if ( $settings['arrows'] === 'yes' ) : ?>
                 <div class="bmecom-slider-arrows">
                     <button class="bmecom-slider-arrow prev">&lt;</button>
