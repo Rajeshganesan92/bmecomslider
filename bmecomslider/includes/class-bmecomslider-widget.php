@@ -327,7 +327,7 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 <?php foreach ( $settings['slides'] as $slide ) : ?>
                     <div class="bmecom-slide">
                         <?php
-                        $link_tag = '';
+                        $this->remove_render_attribute( 'link_tag' );
                         if ( ! empty( $slide['slide_link']['url'] ) ) {
                             $this->add_link_attributes( 'link_tag', $slide['slide_link'] );
                             echo '<a ' . $this->get_render_attribute_string( 'link_tag' ) . '>';
