@@ -125,18 +125,17 @@ class BMECOMSlider {
         const slide = this.slides[index];
         if (!slide || slide.dataset.loaded) return;
 
-        const sources = slide.querySelectorAll('source');
-        sources.forEach(source => {
-            if (source.dataset.srcset) {
-                source.srcset = source.dataset.srcset;
-                delete source.dataset.srcset;
-            }
-        });
+        if (slide.style.backgroundImage === 'none' || slide.style.backgroundImage === '') {
+            const screenWidth = window.innerWidth;
+            let imageToLoad = slide.dataset.desktopImage;
 
-        const img = slide.querySelector('img');
-        if (img && img.dataset.src) {
-            img.src = img.dataset.src;
-            delete img.dataset.src;
+            if (screenWidth <= 767 && slide.dataset.mobileImage) {
+                imageToLoad = slide.dataset.mobileImage;
+            } else if (screenWidth <= 1024 && slide.dataset.tabletImage) {
+                imageToLoad = slide.dataset.tabletImage;
+            }
+
+            slide.style.backgroundImage = `url(${imageToLoad})`;
         }
 
         slide.dataset.loaded = true;
