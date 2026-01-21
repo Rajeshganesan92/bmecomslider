@@ -407,8 +407,9 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
      */
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $id = $this->get_id();
         ?>
-        <div class="bmecom-slider-wrapper">
+        <div class="bmecom-slider-wrapper bmecom-slider-wrapper-<?php echo esc_attr( $id ); ?>">
             <div class="bmecom-slider"
                  data-animation="<?php echo esc_attr( $settings['animation'] ); ?>"
                  data-autoplay="<?php echo esc_attr( $settings['autoplay'] ); ?>"
@@ -430,24 +431,29 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                     $tablet_image = ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'];
                     $mobile_image = ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'];
 
+                    $background_size_tablet = !empty($slide['background_size_tablet']) ? $slide['background_size_tablet'] : $slide['background_size'];
+                    $background_position_tablet = !empty($slide['background_position_tablet']) ? $slide['background_position_tablet'] : $slide['background_position'];
+                    $background_size_mobile = !empty($slide['background_size_mobile']) ? $slide['background_size_mobile'] : $slide['background_size'];
+                    $background_position_mobile = !empty($slide['background_position_mobile']) ? $slide['background_position_mobile'] : $slide['background_position'];
+
                     $style_blocks .= "
                         @media (max-width: 1024px) {
-                            .bmecom-slide-{$index} {
+                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$index} {
                                 background-image: url(" . esc_url( $tablet_image ) . ") !important;
-                                background-size: " . esc_attr( $slide['background_size_tablet'] ? $slide['background_size_tablet'] : $slide['background_size'] ) . " !important;
-                                background-position: " . esc_attr( $slide['background_position_tablet'] ? $slide['background_position_tablet'] : $slide['background_position'] ) . " !important;
+                                background-size: " . esc_attr( $background_size_tablet ) . " !important;
+                                background-position: " . esc_attr( $background_position_tablet ) . " !important;
                             }
                         }
                         @media (max-width: 767px) {
-                            .bmecom-slide-{$index} {
+                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$index} {
                                 background-image: url(" . esc_url( $mobile_image ) . ") !important;
-                                background-size: " . esc_attr( $slide['background_size_mobile'] ? $slide['background_size_mobile'] : $slide['background_size'] ) . " !important;
-                                background-position: " . esc_attr( $slide['background_position_mobile'] ? $slide['background_position_mobile'] : $slide['background_position'] ) . " !important;
+                                background-size: " . esc_attr( $background_size_mobile ) . " !important;
+                                background-position: " . esc_attr( $background_position_mobile ) . " !important;
                             }
                         }
                     ";
                     ?>
-                    <div class="bmecom-slide bmecom-slide-<?php echo $index; ?>"
+                    <div class="bmecom-slide bmecom-slide-<?php echo $id; ?>-<?php echo $index; ?>"
                          style="<?php echo $slide_style; ?>"
                          data-desktop-image="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>"
                          data-tablet-image="<?php echo esc_url( $tablet_image ); ?>"
