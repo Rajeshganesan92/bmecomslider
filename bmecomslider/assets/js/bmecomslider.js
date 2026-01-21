@@ -123,22 +123,18 @@ class BMECOMSlider {
 
     loadSlideImages(index) {
         const slide = this.slides[index];
-        if (!slide || slide.dataset.loaded) return;
+        if (!slide) return;
 
-        if (slide.style.backgroundImage === 'none' || slide.style.backgroundImage === '') {
-            const screenWidth = window.innerWidth;
-            let imageToLoad = slide.dataset.desktopImage;
+        const screenWidth = window.innerWidth;
+        let imageToLoad = slide.dataset.desktopImage;
 
-            if (screenWidth <= 767 && slide.dataset.mobileImage) {
-                imageToLoad = slide.dataset.mobileImage;
-            } else if (screenWidth <= 1024 && slide.dataset.tabletImage) {
-                imageToLoad = slide.dataset.tabletImage;
-            }
-
-            slide.style.backgroundImage = `url(${imageToLoad})`;
+        if (screenWidth <= 767 && slide.dataset.mobileImage) {
+            imageToLoad = slide.dataset.mobileImage;
+        } else if (screenWidth <= 1024 && slide.dataset.tabletImage) {
+            imageToLoad = slide.dataset.tabletImage;
         }
 
-        slide.dataset.loaded = true;
+        slide.style.backgroundImage = `url(${imageToLoad})`;
     }
 
     nextSlide() {
