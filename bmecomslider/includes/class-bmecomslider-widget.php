@@ -222,6 +222,28 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->add_responsive_control(
+            'slider_height',
+            [
+                'label' => __( 'Height', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 100,
+                        'max' => 1000,
+                    ],
+                    'vh' => [
+                        'min' => 10,
+                        'max' => 100,
+                    ],
+                ],
+                'size_units' => [ 'px', 'vh' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-wrapper' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -409,7 +431,7 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
         $settings = $this->get_settings_for_display();
         $id = $this->get_id();
         ?>
-        <div class="bmecom-slider-wrapper bmecom-slider-wrapper-<?php echo esc_attr( $id ); ?>">
+        <div class="bmecom-slider-wrapper bmecom-slider-wrapper-<?php echo esc_attr( $id ); ?> animation-<?php echo esc_attr( $settings['animation'] ); ?>">
             <div class="bmecom-slider"
                  data-animation="<?php echo esc_attr( $settings['animation'] ); ?>"
                  data-autoplay="<?php echo esc_attr( $settings['autoplay'] ); ?>"
