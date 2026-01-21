@@ -312,24 +312,6 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_control(
-            'animation_speed',
-            [
-                'label' => __( 'Animation Speed (ms)', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'min' => 100,
-                'max' => 5000,
-                'step' => 50,
-                'default' => 500,
-                'selectors' => [
-                    '{{WRAPPER}} .animation-slide .bmecom-slider' => 'transition-duration: {{SIZE}}ms',
-                ],
-                'condition' => [
-                    'animation' => 'slide',
-                ],
-            ]
-        );
-
         $this->add_responsive_control(
             'slider_height',
             [
@@ -348,6 +330,24 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'size_units' => [ 'px', 'vh' ],
                 'selectors' => [
                     '{{WRAPPER}} .bmecom-slider-wrapper' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'animation_speed',
+            [
+                'label' => __( 'Animation Speed (ms)', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 100,
+                'max' => 5000,
+                'step' => 50,
+                'default' => 500,
+                'selectors' => [
+                    '{{WRAPPER}} .animation-slide .bmecom-slider' => 'transition-duration: {{SIZE}}ms',
+                ],
+                'condition' => [
+                    'animation' => 'slide',
                 ],
             ]
         );
@@ -441,6 +441,18 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                     '{{WRAPPER}} .bmecom-slide-button' => 'border-radius: {{SIZE}}{{UNIT}};',
                 ],
                 'separator' => 'before',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'button_padding',
+            [
+                'label' => __( 'Padding', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
             ]
         );
 
