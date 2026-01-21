@@ -12,11 +12,6 @@
     width: 100%;
 }
 
-.bmecom-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
 .bmecom-slider-arrows {
     position: absolute;
@@ -66,25 +61,18 @@
 /* 1. The Zoom Animation */
 .bmecom-slider-wrapper.animation-zoom .bmecom-slide {
     opacity: 0;
-    transition: opacity 1s ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out, transform 3s ease-in-out;
 }
 
 .bmecom-slider-wrapper.animation-zoom .bmecom-slide.active {
     opacity: 1;
     position: relative;
     z-index: 2;
-}
-
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide img {
-    transform: scale(1);
-    transition: transform 3s ease-in-out;
-}
-
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide.active img {
     transform: scale(1.1);
 }
 

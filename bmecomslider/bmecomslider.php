@@ -28,7 +28,7 @@ function bmecomslider_register_assets() {
     wp_register_script(
         'bmecomslider',
         plugins_url( 'assets/js/bmecomslider.js', __FILE__ ),
-        [],
+        [ 'jquery', 'elementor-frontend' ],
         '1.0.0',
         true
     );
