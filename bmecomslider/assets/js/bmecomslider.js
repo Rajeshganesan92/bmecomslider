@@ -123,18 +123,10 @@ class BMECOMSlider {
 
     loadSlideImages(index) {
         const slide = this.slides[index];
-        if (!slide || slide.dataset.backgroundType !== 'image') return;
+        if (!slide || slide.dataset.backgroundType !== 'image' || !slide.dataset.desktopImage) return;
 
-        const screenWidth = window.innerWidth;
-        let imageToLoad = slide.dataset.desktopImage;
-
-        if (screenWidth <= 767 && slide.dataset.mobileImage) {
-            imageToLoad = slide.dataset.mobileImage;
-        } else if (screenWidth <= 1024 && slide.dataset.tabletImage) {
-            imageToLoad = slide.dataset.tabletImage;
-        }
-
-        slide.style.backgroundImage = `url(${imageToLoad})`;
+        // The CSS media queries now handle responsive images, so we just need to ensure the desktop image is loaded.
+        slide.style.backgroundImage = `url(${slide.dataset.desktopImage})`;
     }
 
     nextSlide() {

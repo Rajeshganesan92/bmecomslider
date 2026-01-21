@@ -274,6 +274,26 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->add_responsive_control(
+            'arrow_border_radius',
+            [
+                'label' => __( 'Arrow Border Radius', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-arrow' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'arrows' => 'yes',
+                ],
+            ]
+        );
+
         $this->add_control(
             'slides',
             [
@@ -329,6 +349,98 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'selectors' => [
                     '{{WRAPPER}} .bmecom-slider-wrapper' => 'height: {{SIZE}}{{UNIT}};',
                 ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'button_typography',
+                'selector' => '{{WRAPPER}} .bmecom-slide-button',
+            ]
+        );
+
+        $this->start_controls_tabs( 'button_style_tabs' );
+
+        $this->start_controls_tab(
+            'button_style_normal_tab',
+            [
+                'label' => __( 'Normal', 'bmecomslider' ),
+            ]
+        );
+
+        $this->add_control(
+            'button_text_color',
+            [
+                'label' => __( 'Text Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_background_color',
+            [
+                'label' => __( 'Background Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            'button_style_hover_tab',
+            [
+                'label' => __( 'Hover', 'bmecomslider' ),
+            ]
+        );
+
+        $this->add_control(
+            'button_hover_text_color',
+            [
+                'label' => __( 'Text Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button:hover' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_hover_background_color',
+            [
+                'label' => __( 'Background Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button:hover' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_responsive_control(
+            'button_border_radius',
+            [
+                'label' => __( 'Border Radius', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ],
+                'separator' => 'before',
             ]
         );
 
@@ -474,9 +586,86 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
+            'section_style_content',
+            [
+                'label' => __( 'Content', 'bmecomslider' ),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'heading_style',
+            [
+                'label' => __( 'Heading', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'heading_typography',
+                'selector' => '{{WRAPPER}} .bmecom-slide-heading',
+            ]
+        );
+
+        $this->add_control(
+            'heading_color',
+            [
+                'label' => __( 'Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-heading' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'description_style',
+            [
+                'label' => __( 'Description', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'description_typography',
+                'selector' => '{{WRAPPER}} .bmecom-slide-description',
+            ]
+        );
+
+        $this->add_control(
+            'description_color',
+            [
+                'label' => __( 'Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-description' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_style_button',
+            [
+                'label' => __( 'Button', 'bmecomslider' ),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
             'section_navigation',
             [
                 'label' => __( 'Navigation', 'bmecomslider' ),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
 
