@@ -460,14 +460,14 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
 
                     $style_blocks .= "
                         @media (max-width: 1024px) {
-                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$index} {
+                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$id}-{$index} {
                                 background-image: url(" . esc_url( $tablet_image ) . ") !important;
                                 background-size: " . esc_attr( $background_size_tablet ) . " !important;
                                 background-position: " . esc_attr( $background_position_tablet ) . " !important;
                             }
                         }
                         @media (max-width: 767px) {
-                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$index} {
+                            .bmecom-slider-wrapper-{$id} .bmecom-slide-{$id}-{$index} {
                                 background-image: url(" . esc_url( $mobile_image ) . ") !important;
                                 background-size: " . esc_attr( $background_size_mobile ) . " !important;
                                 background-position: " . esc_attr( $background_position_mobile ) . " !important;
