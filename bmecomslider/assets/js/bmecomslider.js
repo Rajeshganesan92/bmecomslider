@@ -123,7 +123,7 @@ class BMECOMSlider {
 
     loadSlideImages(index) {
         const slide = this.slides[index];
-        if (!slide) return;
+        if (!slide || slide.dataset.backgroundType !== 'image') return;
 
         const screenWidth = window.innerWidth;
         let imageToLoad = slide.dataset.desktopImage;

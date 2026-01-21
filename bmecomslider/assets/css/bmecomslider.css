@@ -103,3 +103,37 @@
     flex: 0 0 100%;
     width: 100%;
 }
+
+.bmecom-slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bmecom-slide-content {
+    position: absolute;
+    z-index: 2;
+    color: white;
+}
+
+.bmecom-slide-heading {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.bmecom-slide-description {
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+
+.bmecom-slide-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
