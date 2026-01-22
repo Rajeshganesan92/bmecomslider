@@ -679,6 +679,49 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'arrow_shape',
+            [
+                'label' => __( 'Arrow Shape', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    'default' => [
+                        'title' => __( 'Default', 'bmecomslider' ),
+                        'icon' => 'eicon-ban',
+                    ],
+                    'circle' => [
+                        'title' => __( 'Circle', 'bmecomslider' ),
+                        'icon' => 'eicon-circle',
+                    ],
+                ],
+                'default' => 'default',
+                'condition' => [
+                    'arrows' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'arrow_size',
+            [
+                'label' => __( 'Arrow Size', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 20,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-arrow' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'arrows' => 'yes',
+                    'arrow_shape' => 'circle',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'arrow_background_color',
             [
                 'label' => __( 'Arrow Background Color', 'bmecomslider' ),
@@ -867,8 +910,13 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             <style>
                 <?php echo $style_blocks; ?>
             </style>
-            <?php if ( $settings['arrows'] === 'yes' ) : ?>
-                <div class="bmecom-slider-arrows">
+            <?php if ( $settings['arrows'] === 'yes' ) :
+                $arrow_classes = 'bmecom-slider-arrows';
+                if ( $settings['arrow_shape'] === 'circle' ) {
+                    $arrow_classes .= ' bmecom-slider-arrows--circle';
+                }
+                ?>
+                <div class="<?php echo esc_attr( $arrow_classes ); ?>">
                     <button class="bmecom-slider-arrow prev">&lt;</button>
                     <button class="bmecom-slider-arrow next">&gt;</button>
                 </div>

@@ -34,6 +34,13 @@
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bmecom-slider-arrows.bmecom-slider-arrows--circle .bmecom-slider-arrow {
+    border-radius: 50%;
 }
 
 .bmecom-slider-dots {
