@@ -314,6 +314,28 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->add_responsive_control(
+            'button_width',
+            [
+                'label' => __( 'Button Width', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 500,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
