@@ -274,26 +274,6 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_responsive_control(
-            'arrow_border_radius',
-            [
-                'label' => __( 'Arrow Border Radius', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 50,
-                    ],
-                ],
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slider-arrow' => 'border-radius: {{SIZE}}{{UNIT}};',
-                ],
-                'condition' => [
-                    'arrows' => 'yes',
-                ],
-            ]
-        );
-
         $this->add_control(
             'slides',
             [
@@ -334,6 +314,92 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_slider_behavior',
+            [
+                'label' => __( 'Slider Behavior', 'bmecomslider' ),
+            ]
+        );
+
+        $this->add_control(
+            'autoplay',
+            [
+                'label' => __( 'Autoplay', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'On', 'bmecomslider' ),
+                'label_off' => __( 'Off', 'bmecomslider' ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'slide_timing',
+            [
+                'label' => __( 'Slide Timing (ms)', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 100,
+                'max' => 20000,
+                'step' => 100,
+                'default' => 5000,
+                'condition' => [
+                    'autoplay' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'pause_on_hover',
+            [
+                'label' => __( 'Pause on Hover', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'On', 'bmecomslider' ),
+                'label_off' => __( 'Off', 'bmecomslider' ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+                'condition' => [
+                    'autoplay' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'loop',
+            [
+                'label' => __( 'Loop', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __( 'On', 'bmecomslider' ),
+                'label_off' => __( 'Off', 'bmecomslider' ),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_animation',
+            [
+                'label' => __( 'Animation', 'bmecomslider' ),
+            ]
+        );
+
+        $this->add_control(
+            'animation',
+            [
+                'label' => __( 'Animation', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'fade' => __( 'Fade', 'bmecomslider' ),
+                    'slide' => __( 'Slide', 'bmecomslider' ),
+                    'zoom' => __( 'Zoom', 'bmecomslider' ),
+                ],
+                'default' => 'fade',
+            ]
+        );
+
         $this->add_control(
             'animation_speed',
             [
@@ -349,6 +415,126 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'condition' => [
                     'animation' => 'slide',
                 ],
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_style_content',
+            [
+                'label' => __( 'Content', 'bmecomslider' ),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_responsive_control(
+            'content_horizontal_position',
+            [
+                'label' => __( 'Horizontal Position', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-content' => 'left: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'content_vertical_position',
+            [
+                'label' => __( 'Vertical Position', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-content' => 'top: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'heading_style',
+            [
+                'label' => __( 'Heading', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'heading_typography',
+                'selector' => '{{WRAPPER}} .bmecom-slide-heading',
+            ]
+        );
+
+        $this->add_control(
+            'heading_color',
+            [
+                'label' => __( 'Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-heading' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'description_style',
+            [
+                'label' => __( 'Description', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'description_typography',
+                'selector' => '{{WRAPPER}} .bmecom-slide-description',
+            ]
+        );
+
+        $this->add_control(
+            'description_color',
+            [
+                'label' => __( 'Color', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-description' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_style_button',
+            [
+                'label' => __( 'Button', 'bmecomslider' ),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
 
@@ -459,221 +645,6 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
         $this->end_controls_section();
 
         $this->start_controls_section(
-            'section_content_position',
-            [
-                'label' => __( 'Content Position', 'bmecomslider' ),
-            ]
-        );
-
-        $this->add_responsive_control(
-            'content_horizontal_position',
-            [
-                'label' => __( 'Horizontal Position', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 1000,
-                    ],
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'size_units' => [ 'px', '%' ],
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slide-content' => 'left: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->add_responsive_control(
-            'content_vertical_position',
-            [
-                'label' => __( 'Vertical Position', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 1000,
-                    ],
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'size_units' => [ 'px', '%' ],
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slide-content' => 'top: {{SIZE}}{{UNIT}};',
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'section_slider_behavior',
-            [
-                'label' => __( 'Slider Behavior', 'bmecomslider' ),
-            ]
-        );
-
-        $this->add_control(
-            'autoplay',
-            [
-                'label' => __( 'Autoplay', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'On', 'bmecomslider' ),
-                'label_off' => __( 'Off', 'bmecomslider' ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'slide_timing',
-            [
-                'label' => __( 'Slide Timing (ms)', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'min' => 100,
-                'max' => 20000,
-                'step' => 100,
-                'default' => 5000,
-                'condition' => [
-                    'autoplay' => 'yes',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'pause_on_hover',
-            [
-                'label' => __( 'Pause on Hover', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'On', 'bmecomslider' ),
-                'label_off' => __( 'Off', 'bmecomslider' ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-                'condition' => [
-                    'autoplay' => 'yes',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'loop',
-            [
-                'label' => __( 'Loop', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __( 'On', 'bmecomslider' ),
-                'label_off' => __( 'Off', 'bmecomslider' ),
-                'return_value' => 'yes',
-                'default' => 'yes',
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'section_animation',
-            [
-                'label' => __( 'Animation', 'bmecomslider' ),
-            ]
-        );
-
-        $this->add_control(
-            'animation',
-            [
-                'label' => __( 'Animation', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => [
-                    'fade' => __( 'Fade', 'bmecomslider' ),
-                    'slide' => __( 'Slide', 'bmecomslider' ),
-                    'zoom' => __( 'Zoom', 'bmecomslider' ),
-                ],
-                'default' => 'fade',
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'section_style_content',
-            [
-                'label' => __( 'Content', 'bmecomslider' ),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->add_control(
-            'heading_style',
-            [
-                'label' => __( 'Heading', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::HEADING,
-                'separator' => 'before',
-            ]
-        );
-
-        $this->add_group_control(
-            \Elementor\Group_Control_Typography::get_type(),
-            [
-                'name' => 'heading_typography',
-                'selector' => '{{WRAPPER}} .bmecom-slide-heading',
-            ]
-        );
-
-        $this->add_control(
-            'heading_color',
-            [
-                'label' => __( 'Color', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slide-heading' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
-        $this->add_control(
-            'description_style',
-            [
-                'label' => __( 'Description', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::HEADING,
-                'separator' => 'before',
-            ]
-        );
-
-        $this->add_group_control(
-            \Elementor\Group_Control_Typography::get_type(),
-            [
-                'name' => 'description_typography',
-                'selector' => '{{WRAPPER}} .bmecom-slide-description',
-            ]
-        );
-
-        $this->add_control(
-            'description_color',
-            [
-                'label' => __( 'Color', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slide-description' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'section_style_button',
-            [
-                'label' => __( 'Button', 'bmecomslider' ),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
             'section_navigation',
             [
                 'label' => __( 'Navigation', 'bmecomslider' ),
@@ -714,6 +685,26 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .bmecom-slider-arrow' => 'background-color: {{VALUE}};',
+                ],
+                'condition' => [
+                    'arrows' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'arrow_border_radius',
+            [
+                'label' => __( 'Arrow Border Radius', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slider-arrow' => 'border-radius: {{SIZE}}{{UNIT}};',
                 ],
                 'condition' => [
                     'arrows' => 'yes',
@@ -798,10 +789,10 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                         $tablet_image = ! empty( $slide['tablet_image']['url'] ) ? $slide['tablet_image']['url'] : $slide['desktop_image']['url'];
                         $mobile_image = ! empty( $slide['mobile_image']['url'] ) ? $slide['mobile_image']['url'] : $slide['desktop_image']['url'];
 
-                        $background_size_tablet = !empty($slide['background_size_tablet']) ? $slide['background_size_tablet'] : $slide['background_size'];
-                        $background_position_tablet = !empty($slide['background_position_tablet']) ? $slide['background_position_tablet'] : $slide['background_position'];
-                        $background_size_mobile = !empty($slide['background_size_mobile']) ? $slide['background_size_mobile'] : $slide['background_size'];
-                        $background_position_mobile = !empty($slide['background_position_mobile']) ? $slide['background_position_mobile'] : $slide['background_position'];
+                        $background_size_tablet = ! empty( $slide['background_size_tablet'] ) ? $slide['background_size_tablet'] : $slide['background_size'];
+                        $background_position_tablet = ! empty( $slide['background_position_tablet'] ) ? $slide['background_position_tablet'] : $slide['background_position'];
+                        $background_size_mobile = ! empty( $slide['background_size_mobile'] ) ? $slide['background_size_mobile'] : $slide['background_size'];
+                        $background_position_mobile = ! empty( $slide['background_position_mobile'] ) ? $slide['background_position_mobile'] : $slide['background_position'];
 
                         $style_blocks .= "
                             @media (max-width: 1024px) {
@@ -820,8 +811,13 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                             }
                         ";
                     }
+
+                    $slide_classes = "bmecom-slide bmecom-slide-{$id}-{$index}";
+                    if ($index === 0) {
+                        $slide_classes .= ' active';
+                    }
                     ?>
-                    <div class="bmecom-slide bmecom-slide-<?php echo $id; ?>-<?php echo $index; ?>"
+                    <div class="<?php echo esc_attr( $slide_classes ); ?>"
                          style="<?php echo $slide_style; ?>"
                          data-desktop-image="<?php echo esc_url( $slide['desktop_image']['url'] ); ?>"
                          data-tablet-image="<?php echo esc_url( $tablet_image ); ?>"
@@ -836,8 +832,9 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                         <?php
                         $has_button_link = ! empty( $slide['button_text'] ) && ! empty( $slide['button_link']['url'] );
                         if ( ! empty( $slide['slide_link']['url'] ) && ! $has_button_link ) {
-                            $this->add_link_attributes( 'slide-link-' . $index, $slide['slide_link'] );
-                            echo '<a ' . $this->get_render_attribute_string( 'slide-link-' . $index ) . '>';
+                            $slide_link_key = $this->get_repeater_setting_key( 'slide_link', 'slides', $index );
+                            $this->add_link_attributes( $slide_link_key, $slide['slide_link'] );
+                            echo '<a ' . $this->get_render_attribute_string( $slide_link_key ) . '>';
                         }
                         ?>
 
@@ -848,10 +845,12 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                             <?php if ( ! empty( $slide['description'] ) ) : ?>
                                 <p class="bmecom-slide-description"><?php echo esc_html( $slide['description'] ); ?></p>
                             <?php endif; ?>
-                            <?php if ( ! empty( $slide['button_text'] ) && ! empty( $slide['button_link']['url'] ) ) :
-                                $this->add_link_attributes( 'button-link-' . $index, $slide['button_link'] );
+                            <?php
+                            if ( $has_button_link ) :
+                                $button_link_key = $this->get_repeater_setting_key( 'button_link', 'slides', $index );
+                                $this->add_link_attributes( $button_link_key, $slide['button_link'] );
                                 ?>
-                                <a <?php echo $this->get_render_attribute_string( 'button-link-' . $index ); ?> class="bmecom-slide-button">
+                                <a <?php echo $this->get_render_attribute_string( $button_link_key ); ?> class="bmecom-slide-button">
                                     <?php echo esc_html( $slide['button_text'] ); ?>
                                 </a>
                             <?php endif; ?>
