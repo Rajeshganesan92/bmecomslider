@@ -117,16 +117,18 @@
     position: absolute;
     z-index: 2;
     color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .bmecom-slide-heading {
     font-size: 2em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
 }
 
 .bmecom-slide-description {
     font-size: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
 }
 
 .bmecom-slide-button {
