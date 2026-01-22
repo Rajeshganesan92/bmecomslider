@@ -314,15 +314,30 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_responsive_control(
-            'button_width',
+        $this->add_control(
+            'button_width_type',
             [
-                'label' => __( 'Button Width', 'bmecomslider' ),
+                'label' => __( 'Width', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'default' => __( 'Default', 'bmecomslider' ),
+                    'full' => __( 'Full Width (100%)', 'bmecomslider' ),
+                    'inline' => __( 'Inline (auto)', 'bmecomslider' ),
+                    'custom' => __( 'Custom', 'bmecomslider' ),
+                ],
+                'default' => 'default',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'button_width_custom',
+            [
+                'label' => __( 'Custom Width', 'bmecomslider' ),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'range' => [
                     'px' => [
                         'min' => 0,
-                        'max' => 500,
+                        'max' => 1000,
                     ],
                     '%' => [
                         'min' => 0,
@@ -332,6 +347,9 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                 'size_units' => [ 'px', '%' ],
                 'selectors' => [
                     '{{WRAPPER}} .bmecom-slide-button' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'button_width_type' => 'custom',
                 ],
             ]
         );
@@ -951,10 +969,18 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                             <?php endif; ?>
                             <?php
                             if ( $has_button_link ) :
+                                $button_width_type = $settings['button_width_type'];
+                                $button_classes = 'bmecom-slide-button';
+                                if ( 'full' === $button_width_type ) {
+                                    $button_classes .= ' bmecom-slide-button--full';
+                                } elseif ( 'inline' === $button_width_type ) {
+                                    $button_classes .= ' bmecom-slide-button--inline';
+                                }
+
                                 $button_link_key = $this->get_repeater_setting_key( 'button_link', 'slides', $index );
                                 $this->add_link_attributes( $button_link_key, $slide['button_link'] );
                                 ?>
-                                <a <?php echo $this->get_render_attribute_string( $button_link_key ); ?> class="bmecom-slide-button">
+                                <a <?php echo $this->get_render_attribute_string( $button_link_key ); ?> class="<?php echo esc_attr( $button_classes ); ?>">
                                     <?php echo esc_html( $slide['button_text'] ); ?>
                                 </a>
                             <?php endif; ?>
