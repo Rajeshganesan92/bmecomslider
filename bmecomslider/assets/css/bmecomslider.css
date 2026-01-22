@@ -60,38 +60,31 @@
 }
 
 /* Animations */
-/* 1. The Zoom Animation */
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide {
+.animation-fade .bmecom-slide,
+.animation-zoom .bmecom-slide {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+.animation-fade .bmecom-slide.active,
+.animation-zoom .bmecom-slide.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.animation-zoom .bmecom-slide {
     transform: scale(1);
     transition: opacity 1s ease-in-out, transform 3s ease-in-out;
 }
 
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide.active {
-    opacity: 1;
-    position: relative;
-    z-index: 2;
+.animation-zoom .bmecom-slide.active {
     transform: scale(1.1);
-}
-
-/* 2. The Fade Animation */
-.bmecom-slider-wrapper.animation-fade .bmecom-slide {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    position: absolute; /* Ensure slides stack for the cross-fade */
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.bmecom-slider-wrapper.animation-fade .bmecom-slide.active {
-    opacity: 1;
-    position: relative; /* The active slide maintains the container height */
-    z-index: 2;
 }
 
 .animation-slide .bmecom-slider {
