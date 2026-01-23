@@ -100,14 +100,13 @@ class BMECOMSlider {
 
         this.loadSlideImages(index);
 
+        if (this.slides[oldIndex]) {
+            this.slides[oldIndex].classList.remove('active');
+        }
+        this.slides[index].classList.add('active');
+
         if (animation === 'slide') {
             this.slider.style.transform = `translateX(-${index * 100}%)`;
-        } else {
-            // This logic is for fade/zoom
-            if (this.slides[oldIndex]) {
-                 this.slides[oldIndex].classList.remove('active');
-            }
-            this.slides[index].classList.add('active');
         }
 
         this.currentIndex = index;
