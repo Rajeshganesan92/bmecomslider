@@ -314,47 +314,6 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_control(
-            'button_width_type',
-            [
-                'label' => __( 'Width', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => [
-                    'default' => __( 'Default', 'bmecomslider' ),
-                    'full' => __( 'Full Width (100%)', 'bmecomslider' ),
-                    'inline' => __( 'Inline (auto)', 'bmecomslider' ),
-                    'custom' => __( 'Custom', 'bmecomslider' ),
-                ],
-                'default' => 'default',
-				'separator' => 'before',
-            ]
-        );
-
-        $this->add_responsive_control(
-            'button_width_custom',
-            [
-                'label' => __( 'Custom Width', 'bmecomslider' ),
-                'type' => \Elementor\Controls_Manager::SLIDER,
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 1000,
-                    ],
-                    '%' => [
-                        'min' => 0,
-                        'max' => 100,
-                    ],
-                ],
-                'size_units' => [ 'px', '%' ],
-                'selectors' => [
-                    '{{WRAPPER}} .bmecom-slide-button' => 'width: {{SIZE}}{{UNIT}};',
-                ],
-                'condition' => [
-                    'button_width_type' => 'custom',
-                ],
-            ]
-        );
-
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -722,6 +681,46 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'button_width_type',
+            [
+                'label' => __( 'Width', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'default' => __( 'Default (fit-content)', 'bmecomslider' ),
+                    'full' => __( 'Full Width (100%)', 'bmecomslider' ),
+                    'custom' => __( 'Custom', 'bmecomslider' ),
+                ],
+                'default' => 'default',
+				'separator' => 'before',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'button_width_custom',
+            [
+                'label' => __( 'Custom Width', 'bmecomslider' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'size_units' => [ 'px', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .bmecom-slide-button' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+                'condition' => [
+                    'button_width_type' => 'custom',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -974,7 +973,7 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                                 $button_classes = 'bmecom-slide-button';
                                 if ( 'full' === $button_width_type ) {
                                     $button_classes .= ' bmecom-slide-button--full';
-                                } elseif ( 'inline' === $button_width_type ) {
+                                } elseif ( 'default' === $button_width_type ) {
                                     $button_classes .= ' bmecom-slide-button--inline';
                                 }
 
