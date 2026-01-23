@@ -146,5 +146,5 @@
 }
 
 .bmecom-slide-button--inline {
-    width: auto;
+    width: fit-content;
 }
