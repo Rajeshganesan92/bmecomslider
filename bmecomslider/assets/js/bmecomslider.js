@@ -19,17 +19,15 @@ class BMECOMSlider {
         }
 
         this.wrapper.classList.add(`animation-${this.settings.animation}`);
+        this.loadSlideImages(0);
         this.setupDots();
         this.setupEventListeners();
 
         // Initial slide setup
         if (this.settings.animation === 'slide') {
-             this.slider.style.transform = 'translateX(0%)';
-        } else {
-            if (this.slides.length > 0) {
-                this.slides[0].classList.add('active');
-            }
+            this.slider.style.transform = 'translateX(0%)';
         }
+
         if (this.dots && this.dots.length > 0) {
             this.dots[0].classList.add('active');
         }

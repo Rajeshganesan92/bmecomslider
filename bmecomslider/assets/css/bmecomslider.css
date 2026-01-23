@@ -34,6 +34,13 @@
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bmecom-slider-arrows.bmecom-slider-arrows--circle .bmecom-slider-arrow {
+    border-radius: 50%;
 }
 
 .bmecom-slider-dots {
@@ -60,38 +67,31 @@
 }
 
 /* Animations */
-/* 1. The Zoom Animation */
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide {
+.animation-fade .bmecom-slide,
+.animation-zoom .bmecom-slide {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+.animation-fade .bmecom-slide.active,
+.animation-zoom .bmecom-slide.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.animation-zoom .bmecom-slide {
     transform: scale(1);
     transition: opacity 1s ease-in-out, transform 3s ease-in-out;
 }
 
-.bmecom-slider-wrapper.animation-zoom .bmecom-slide.active {
-    opacity: 1;
-    position: relative;
-    z-index: 2;
+.animation-zoom .bmecom-slide.active {
     transform: scale(1.1);
-}
-
-/* 2. The Fade Animation */
-.bmecom-slider-wrapper.animation-fade .bmecom-slide {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    position: absolute; /* Ensure slides stack for the cross-fade */
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
-.bmecom-slider-wrapper.animation-fade .bmecom-slide.active {
-    opacity: 1;
-    position: relative; /* The active slide maintains the container height */
-    z-index: 2;
 }
 
 .animation-slide .bmecom-slider {
@@ -117,16 +117,18 @@
     position: absolute;
     z-index: 2;
     color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .bmecom-slide-heading {
     font-size: 2em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
 }
 
 .bmecom-slide-description {
     font-size: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
 }
 
 .bmecom-slide-button {
@@ -136,4 +138,13 @@
     color: white;
     text-decoration: none;
     border-radius: 5px;
+}
+
+.bmecom-slide-button--full {
+    width: 100%;
+    text-align: center;
+}
+
+.bmecom-slide-button--inline {
+    width: fit-content;
 }
