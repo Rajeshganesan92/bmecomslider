@@ -326,6 +326,7 @@ class BMECOM_Slider_Widget extends \Elementor\Widget_Base {
                     'custom' => __( 'Custom', 'bmecomslider' ),
                 ],
                 'default' => 'default',
+				'separator' => 'before',
             ]
         );
 
